@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="VarausjarjestelmaR3.EmployeeInfoList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VarausjarjestelmaR3"
+             mc:Ignorable="d" 
+         d:DesignHeight="215" Background="White" Width="590" >
+    <Canvas Width="590" >
+        <StackPanel HorizontalAlignment="Center" Canvas.Left="22" VerticalAlignment="Top" Width="153" Canvas.Top="5" Height="204" >
+            <Label  Margin="0,0,20,3" Content="Työtekijän nimi" />
+            <Label Margin="0,0,20,3" Content="Osoite"  />
+            <Label  Margin="0,0,20,3" Content="Puhelin" />
+            <Label  Margin="0,0,20,3" Content="KayttajaID"  />
+            <Label  Margin="0,0,20,3" Content="Salasana" />
+            <Label Margin="0,0,20,3" Content="Käyttöoikeus"/>
+            <Label Margin="0,0,20,50" Content="Toimipiste"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Canvas.Left="199" VerticalAlignment="Top" Width="291" Canvas.Top="5" Height="207"  >
+            <TextBox x:Name="Nimi" Margin="0,0,20,5" Text="{Binding Nimi}" Height="25" />
+            <TextBox x:Name="Osoite" Margin="0,0,20,5" Text="{Binding Osoite}" Height="25"  />
+            <TextBox x:Name="Puhelin" Margin="0,0,20,5" Text="{Binding Puhelin}" Height="25" />
+            <TextBox x:Name="KayttajaID" Margin="0,0,20,5" Text="{Binding KayttajaID}" Height="25"  />
+            <TextBox x:Name="Salasana" Margin="0,0,20,5" Text="{Binding Salasana}" Height="25" />
+            <TextBox x:Name="KayttoOikeus" Margin="0,0,20,5" Text="{Binding KayttoOikeus}" Height="25"  />
+            <ComboBox x:Name="ComOffice" Margin="0,0,20,50" SelectedValue="{Binding ToimipisteID}"  SelectedValuePath="ToimipisteID" DisplayMemberPath="ToimipisteNimi" Height="25"  />
+        </StackPanel>
+    </Canvas>
+</UserControl>

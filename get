@@ -1,0 +1,47 @@
+[33mcommit a2dbca01d090092d504cc4d0b97087f96cf9086a[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Idrees Zamil Yaser <idrees.zamil@edu.karelia.com>
+Date:   Mon Apr 29 17:49:59 2024 +0300
+
+    Käyttäjäroolin tunnistaminen
+
+[33mcommit 1fb82c122cf709a1967384f7c1c5ec31654e13cc[m
+Author: Idrees Zamil Yaser <idrees.zamil@edu.karelia.com>
+Date:   Mon Apr 29 11:35:02 2024 +0300
+
+    kirjoittamismetodin viimeistely ja tietokannan testaus.
+
+[33mcommit 0e179c0f0f7a9b03ef1c1245d4aeb1208269d785[m
+Author: Karoliina Sallmén <2306098@edu.karelia.fi>
+Date:   Fri Apr 26 22:44:02 2024 +0300
+
+    Pieniä muutoksia käyttöliittymään
+
+[33mcommit 530e80613086c3620be55ae5ff53c6cc3bbc6ee9[m
+Author: Karoliina Sallmén <2306098@edu.karelia.fi>
+Date:   Fri Apr 26 18:07:25 2024 +0300
+
+    Käyttöliittymän pohjia
+
+[33mcommit 1bb442202b354b41fc27a9fc4d0fbade34f35d06[m
+Author: Idrees Zamil Yaser <idrees.zamil@edu.karelia.com>
+Date:   Thu Apr 25 22:23:44 2024 +0300
+
+    Kirjautumismetodin käyttöönotto lisääminen.
+
+[33mcommit 0458660e03916a44189498a279d85c21a78c9976[m
+Author: Ansa Allt <2306080@edu.karelia.fi>
+Date:   Wed Apr 24 19:30:20 2024 +0300
+
+    Tulostusmetodi ja käyttöohje. Repository.cs
+
+[33mcommit 3a35e26fc76f1bd2a43808e5209671b8a4241702[m
+Author: Ansa Allt <2306080@edu.karelia.fi>
+Date:   Fri Apr 19 14:37:24 2024 +0300
+
+    Add project files.
+
+[33mcommit f3f3cda49772dfa99c4ab330ec461e922af610b7[m
+Author: Ansa Allt <2306080@edu.karelia.fi>
+Date:   Fri Apr 19 14:37:22 2024 +0300
+
+    Add .gitattributes, .gitignore, and README.md.

@@ -1,0 +1,82 @@
+﻿<Window x:Class="VarausjarjestelmaR3.Officess"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VarausjarjestelmaR3"
+        mc:Ignorable="d"
+        Title="Officess" Height="450" Width="800">
+    <TabControl>
+        <!-- Toimipisteiden hallinta välilehti -->
+        <TabItem Header="Toimipisteet">
+            <TabControl Margin="-1,0,1,0">
+                <!-- Toimipisteiden lisääminen välilehti -->
+                <TabItem Header="Lisää">
+                    <StackPanel Height="349" Margin="117,0,0,0" Name="mainBox">
+                        <TextBox x:Name="txtToimipisteNimi" Margin="0,0,20,5" Text="Toimipisteen nimi" FocusableChanged="clear" MouseDown="txtToimipisteNimi_MouseEnter"/>
+                        <TextBox x:Name="txtPaikkakunta" Margin="0,0,20,5" Text="Paikkakunta" FocusableChanged="clear" />
+                        <TextBox x:Name="txtKatuosoite" Margin="0,0,20,5" Text="Katuosoite" FocusableChanged="clear"/>
+                        <TextBox x:Name="txtPostinumero" Margin="0,0,20,5" Text="Postinumero" FocusableChanged="clear"/>
+                        <TextBox x:Name="txtPostitoimipaikka" Margin="0,0,20,5" Text="Postitoimipaikka" FocusableChanged="clear"/>
+                        <TextBox x:Name="txtPuhelin" Margin="0,0,20,50" Text="Puhelin" />
+                        <Grid Height="42">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Width="100" Click="Check">tarkista</Button>
+                            <Button Grid.Column="1" Width="100" Click="makeConne">suorita</Button>
+
+                        </Grid>
+                    </StackPanel>
+
+                </TabItem>
+
+                <!-- Toimipisteiden poistaminen välilehti -->
+                <TabItem Header="Poista" HorizontalAlignment="Right" Width="43">
+                    <Grid HorizontalAlignment="Left" Height="134" Margin="85,0,0,0" Width="465">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="73*"/>
+                            <ColumnDefinition Width="82*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <StackPanel HorizontalAlignment="Left" Grid.Column="1" Width="100">
+                            <ComboBox x:Name="combList" Height="30" Width="100"  SelectedValue="{Binding name}" SelectedValuePath="{Binding id}"/>
+
+                        </StackPanel>
+                        <Label Content="Mitä toimipiste haluaisit poistaa?" HorizontalAlignment="Center" Margin="0,-2,0,0" VerticalAlignment="Top" Width="199" Height="26"/>
+                        <Button Content="poistaa" HorizontalAlignment="Left" Height="20" Margin="180,114,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="75"/>
+
+                    </Grid>
+
+                </TabItem>
+
+                <!-- Toimipisteiden muokkaaminen välilehti -->
+                <TabItem Header="Muokkaa">
+                    <!-- Toimipisteiden muokkaamisen näkymä ja toiminnallisuus -->
+                </TabItem>
+            </TabControl>
+        </TabItem>
+
+        <!-- Huoneiden hallinta välilehti -->
+        <TabItem Header="Huoneet">
+            <TabControl>
+                <!-- Huoneiden lisääminen välilehti -->
+                <TabItem Header="Lisää">
+                    <!-- Huoneiden lisäämisen näkymä ja toiminnallisuus -->
+                </TabItem>
+
+                <!-- Huoneiden poistaminen välilehti -->
+                <TabItem Header="Poista">
+                    <!-- Huoneiden poistamisen näkymä ja toiminnallisuus -->
+                </TabItem>
+
+                <!-- Huoneiden muokkaaminen välilehti -->
+                <TabItem Header="Muokkaa">
+                    <!-- Huoneiden muokkaamisen näkymä ja toiminnallisuus -->
+                </TabItem>
+            </TabControl>
+        </TabItem>
+    </TabControl>
+
+</Window>

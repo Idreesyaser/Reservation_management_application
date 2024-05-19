@@ -1,0 +1,34 @@
+﻿<Window x:Class="VarausjarjestelmaR3.UpdateCustomerWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VarausjarjestelmaR3"
+        mc:Ignorable="d"
+                   Title="Päivitä asiakkaan tiedot" Height="450" Width="800">
+    <Canvas>
+        <Label Content="AsiakasId" Canvas.Left="39" Canvas.Top="20" HorizontalAlignment="Center" VerticalAlignment="Top" Width="95"/>
+        <TextBox Text="{Binding AsiakasID}" TextWrapping="Wrap" Canvas.Left="178" Canvas.Top="25" Width="120"/>
+
+        <Label Content="Nimi" Canvas.Left="39" Canvas.Top="50" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Nimi}" TextWrapping="Wrap" Canvas.Left="178" Canvas.Top="55" Width="120"/>
+
+        <Label Content="Osoite" Canvas.Left="39" Canvas.Top="80" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Katuosoite}" TextWrapping="Wrap" Canvas.Left="178" Canvas.Top="85" Width="120"/>
+
+        <Label Content="Postinumero" Canvas.Left="39" Canvas.Top="110" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Postinumero}" TextWrapping="Wrap" Canvas.Left="178" Canvas.Top="115" Width="120"/>
+
+        <Label Content="Postitoimipaikka" Canvas.Left="39" Canvas.Top="140" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox x:Name="Postitoimipaikka" Text="{Binding Postitoimipaikka}" TextWrapping="Wrap" Canvas.Left="178" Canvas.Top="145" Width="120"/>
+
+        <Label Content="Puhelin" Canvas.Left="39" Canvas.Top="170" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox x:Name="Puhelin" Text="{Binding Puhelin}" TextWrapping="Wrap" Canvas.Left="178" Canvas.Top="175" Width="120"/>
+
+        <Label Content="Sähköposti" Canvas.Left="39" Canvas.Top="200" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Sahkoposti}" TextWrapping="Wrap" Canvas.Left="178" Canvas.Top="205" Width="120"/>
+
+        <Button x:Name="UpDateCustomerBtn" Content="Päivitä" Canvas.Left="321" Canvas.Top="264"
+            Height="26" Width="87" Click="UpdateCustomer" />
+    </Canvas>
+</Window>

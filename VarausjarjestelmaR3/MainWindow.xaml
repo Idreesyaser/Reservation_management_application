@@ -1,0 +1,31 @@
+﻿<Window x:Class="VarausjarjestelmaR3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VarausjarjestelmaR3"
+        mc:Ignorable="d"
+        Title="Kirjautuminen" Height="350" Width="550" ResizeMode="NoResize">
+    <Canvas>
+        
+        <Image Source="Icons/logo.png" Canvas.Left="170" HorizontalAlignment="Left" VerticalAlignment="Top" Width="210" Height="81"/>
+        <!--Sisäänkirjautuminen-->
+        <GroupBox Header="Kirjaudu sisään" Width="500" Canvas.Top="54" Canvas.Left="25" >
+            <StackPanel Grid.Row="1" Grid.Column="1" Height="200">
+                <!--<Label Content="Kirjaudu sisään" Margin="88,10,50,10" />-->
+                <Label Content="Käyttäjätunnus" Margin="88,10,80,0"/>
+                <TextBox Name="userName" Width="250" Height="25" />
+                <Label Content="Salasana" Margin="88,10,80,0"/>
+                <PasswordBox Name="Pass" Width="250" Height="25"/>
+                <Canvas>
+                    <Button Content="Kirjaudu" Height="25" Width="155" Click="makeconnetion" Background="#FFEDF3F3" Canvas.Left="299" Canvas.Top="21" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                    <Button Content="Ohita kirjautuminen" Click="LoginBtn_Click" Visibility="Visible" Background="#FFEDF3F3" Canvas.Left="44" Canvas.Top="21" HorizontalAlignment="Left" VerticalAlignment="Center" Width="155" Height="25"/>
+                </Canvas>
+
+            </StackPanel>
+        </GroupBox>
+        <Label FontStyle="Italic" Canvas.Left="25" Canvas.Top="275" Foreground="#FF837B7B" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Top" Height="22">Powered by Group 3 © 2024</Label>
+
+    </Canvas>
+</Window>

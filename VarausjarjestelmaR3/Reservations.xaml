@@ -1,0 +1,327 @@
+﻿<UserControl x:Class="VarausjarjestelmaR3.Reservations"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VarausjarjestelmaR3"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1000">
+    <Grid>
+
+        <!--Omissa välilehdissään menneet, tämänhetkiset ja tulevat varaukset sekä varausten muokkaus/poisto.-->
+
+        <TabControl Name="tabControl">
+            <TabControl.Resources>
+                <!-- Sulkemisnapin ulkoasu Muokkaa-välilehdelle-->
+                <Style TargetType="Button" x:Key="CloseButtonStyle">
+                    <Setter Property="Content" Value="X"/>
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="5 -1 -5 -1"/>
+                    <Setter Property="Padding" Value="5 0 5 0 "/>
+                    <Setter Property="FontWeight" Value="Regular"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="LightGray"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+
+            <TabItem Header="Menneet varaukset">
+                <ListView Grid.Column="0" Grid.Row="0" Name="lvMenneetVaraukset">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="BorderThickness" Value="1,1,1,1"/>
+                            <Setter Property="BorderBrush" Value="LightGray"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="Padding" Value="5 0 0 0" />
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding VarausID}" Width="30" />
+                            <GridViewColumn Header="Varaus alkaa" DisplayMemberBinding="{Binding VarausAlkaa, StringFormat={}{0:dd.MM.yyyy}}" Width="100" />
+                            <GridViewColumn Header="Varaus päättyy" DisplayMemberBinding="{Binding VarausPaattyy, StringFormat={}{0:dd.MM.yyyy}}" Width="100" />
+                            <GridViewColumn Header="Varauspäivä" DisplayMemberBinding="{Binding Varauspaiva, StringFormat={}{0:dd.MM.yyyy}}" Width="100" />
+                            <GridViewColumn Header="Huone" DisplayMemberBinding="{Binding Huone.Nimi}" Width="150" />
+                            <GridViewColumn Header="Lisätiedot" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Lisatiedot}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Asiakas" DisplayMemberBinding="{Binding Asiakas.Nimi}" Width="150" />
+                            <GridViewColumn Header="Varauksen palvelut" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ListView ItemsSource="{Binding VarauksenPalvelut}">
+                                            <ListView.Resources>
+                                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                    <Setter Property="Height" Value="0" />
+                                                </Style>
+                                                <Style TargetType="ListView">
+                                                    <Setter Property="BorderBrush" Value="LightGray" />
+                                                    <Setter Property="BorderThickness" Value="0 0 0 0" />
+                                                </Style>
+                                            </ListView.Resources>
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="Palvelu" DisplayMemberBinding="{Binding Palvelu.Tuote}" Width="95" />
+                                                    <GridViewColumn Header="Kpl" DisplayMemberBinding="{Binding Kpl}" Width="30" />
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Name="Muokkaa" Content="Muokkaa" Click="Muokkaa_Click"  CommandParameter="{Binding}" Width="80" Height="30"  Background="#FFEDF3F3">
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Header="Nyt varattuna">
+                <ListView Grid.Column="0" Grid.Row="0" Name="lvNytVaraukset">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="BorderBrush" Value="LightGray"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="Padding" Value="5 0 0 0" />
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding VarausID}" Width="30" />
+                            <GridViewColumn Header="Varaus alkaa" DisplayMemberBinding="{Binding VarausAlkaa, StringFormat={}{0:dd.MM.yyyy}}" Width="100" />
+                            <GridViewColumn Header="Varaus päättyy" DisplayMemberBinding="{Binding VarausPaattyy, StringFormat={}{0:dd.MM.yyyy}}" Width="100" />
+                            <GridViewColumn Header="Varauspäivä" DisplayMemberBinding="{Binding Varauspaiva, StringFormat={}{0:dd.MM.yyyy}}" Width="100" />
+                            <GridViewColumn Header="Huone" DisplayMemberBinding="{Binding Huone.Nimi}" Width="150" />
+                            <GridViewColumn Header="Lisätiedot" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Lisatiedot}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Asiakas" DisplayMemberBinding="{Binding Asiakas.Nimi}" Width="150" />
+                            <GridViewColumn Header="Varauksen palvelut" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ListView ItemsSource="{Binding VarauksenPalvelut}">
+                                            <ListView.Resources>
+                                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                    <Setter Property="Height" Value="0" />
+                                                </Style>
+                                                <Style TargetType="ListView">
+                                                    <Setter Property="BorderBrush" Value="LightGray" />
+                                                    <Setter Property="BorderThickness" Value="0 0 0 0" />
+                                                </Style>
+                                            </ListView.Resources>
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="Palvelu" DisplayMemberBinding="{Binding Palvelu.Tuote}" Width="95" />
+                                                    <GridViewColumn Header="Kpl" DisplayMemberBinding="{Binding Kpl}" Width="30" />
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Name="Muokkaa" Content="Muokkaa" Click="Muokkaa_Click"  CommandParameter="{Binding}" Width="80" Height="30"  Background="#FFEDF3F3">
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Header="Tulevat varaukset">
+                <ListView Grid.Column="0" Grid.Row="0" Name="lvTulevatVaraukset">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="BorderBrush" Value="LightGray"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="Padding" Value="5 0 0 0" />
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding VarausID}" Width="30" />
+                            <GridViewColumn Header="Varaus alkaa" DisplayMemberBinding="{Binding VarausAlkaa, StringFormat={}{0:dd.MM.yyyy}}" Width="100" />
+                            <GridViewColumn Header="Varaus päättyy" DisplayMemberBinding="{Binding VarausPaattyy, StringFormat={}{0:dd.MM.yyyy}}" Width="100" />
+                            <GridViewColumn Header="Varauspäivä" DisplayMemberBinding="{Binding Varauspaiva, StringFormat={}{0:dd.MM.yyyy}}" Width="100" />
+                            <GridViewColumn Header="Huone" DisplayMemberBinding="{Binding Huone.Nimi}" Width="150" />
+                            <GridViewColumn Header="Lisätiedot" Width="150" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Lisatiedot}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Asiakas" DisplayMemberBinding="{Binding Asiakas.Nimi}" Width="150" />
+                            <GridViewColumn Header="Varauksen palvelut" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ListView ItemsSource="{Binding VarauksenPalvelut}">
+                                            <ListView.Resources>
+                                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                    <Setter Property="Height" Value="0" />
+                                                </Style>
+                                                <Style TargetType="ListView">
+                                                    <Setter Property="BorderBrush" Value="LightGray" />
+                                                    <Setter Property="BorderThickness" Value="0 0 0 0" />
+                                                </Style>
+                                            </ListView.Resources>
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="Palvelu" DisplayMemberBinding="{Binding Palvelu.Tuote}" Width="95" />
+                                                    <GridViewColumn Header="Kpl" DisplayMemberBinding="{Binding Kpl}" Width="30" />
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Name="Muokkaa" Content="Muokkaa" Click="Muokkaa_Click"  CommandParameter="{Binding}" Width="80" Height="30"  Background="#FFEDF3F3">
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Header="Muokkaa varausta" Name="tabMuokkaaVarausta" Visibility="Collapsed" >
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Muokkaa varausta"/>
+                            <!-- Lisää sulje-nappi vain Muokkaa-välilehdelle -->
+                            <Button Style="{StaticResource CloseButtonStyle}" Name="SuljeMuokkaa" Click="SuljeMuokkaa_Click" />
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="250" />
+                        <RowDefinition Height="200" />
+                        <RowDefinition Height="120" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Varauksen tiedot: " Grid.Column="0" Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Width="150">
+                                <Label Content="Varausnumero: " Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <Label Content="Varaus alkaa: " Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <Label Content="Varaus päättyy: " Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <Label Content="Varauksen tekopäivä: " Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <Label Content="Varattu huone: " Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <Label Content="Huoneen ID-numero: " Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <Label Content="Varauksen teki työntekijä (ID): " Height="30" VerticalContentAlignment="Center" Visibility="Hidden" />
+                            </StackPanel>
+                            <StackPanel Width="180">
+                                <TextBox Name="ID" Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" BorderThickness="0" IsReadOnly="True" />
+                                <TextBox Name="VarausAlkaa" Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" BorderThickness="0" IsReadOnly="True" />
+                                <TextBox Name="VarausPaattyy" Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" BorderThickness="0" IsReadOnly="True" />
+                                <TextBox Name="Varauspvm" Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" BorderThickness="0" IsReadOnly="True" />
+                                <TextBox Name="Huone" Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" BorderThickness="0" IsReadOnly="True" />
+                                <TextBox Name="HuoneID" Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" BorderThickness="0" IsReadOnly="True" />
+                                <TextBox Name="Tyontekija" Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" BorderThickness="0" IsReadOnly="True" Visibility="Hidden" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Asiakkaan tiedot: " Grid.Column="1" Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Width="150">
+                                <Label Content="Asiakasnumero: " Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <Label Content="Nimi: " Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <Label Content="Katuosoite: " Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <Label Content="Postinumero: " Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <Label Content="Postitoimipaikka: " Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <Label Content="Puhelinnumero: " Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <Label Content="Sähköpostiosoite: " Height="30" VerticalContentAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Width="180">
+                                <TextBox Name="Asiakasnumero" Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" BorderThickness="0" IsReadOnly="True" />
+                                <TextBox Name="Nimi" Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <TextBox Name="Katuosoite"  Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <TextBox Name="Postinumero" Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <TextBox Name="Postitoimipaikka" Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <TextBox Name="Puhelinnumero" Margin="0,0,0,1" Height="30" VerticalContentAlignment="Center" />
+                                <TextBox Name="Sahkoposti" Height="30" VerticalContentAlignment="Center" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Header="Palvelut (poistaaksesi varatun palvelun valitse määräksi 0): " >
+                        <DataGrid Name="dgPalvelut" AutoGenerateColumns="False" CanUserAddRows="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="PalveluID" Binding="{Binding PalveluID}" IsReadOnly="True" />
+                                <DataGridTextColumn Header="Tuote" Binding="{Binding Tuote}" IsReadOnly="True" />
+                                <DataGridTextColumn Header="Varattu määrä" Binding="{Binding VarattuMaara}" />
+                                <DataGridTextColumn Header="Varastomäärä yhteensä" Binding="{Binding Maara}" IsReadOnly="True" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Header="Lisätiedot: " Height="100"  VerticalAlignment="Top" >
+                        <TextBox Name="Lisatiedot" />
+                    </GroupBox>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <Button Name="TallennaMuokkaus" Click="TallennaMuokkaus_Click" Content="Tallenna" Width="100" Margin="0 0 10 0"  Background="#FFEDF3F3" />
+                        <Button Name="PoistaVaraus" Click="PoistaVaraus_Click" Content="Poista varaus" Width="100" Margin="0 0 5 0"   Background="#FFEDF3F3"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</UserControl>

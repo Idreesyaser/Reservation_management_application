@@ -1,0 +1,84 @@
+﻿<Window x:Class="VarausjarjestelmaR3.InvoiceInfoList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VarausjarjestelmaR3"
+        mc:Ignorable="d"
+      Title="InvoiceInfoList" Height="450" Width="800">
+    <Grid>
+        <ListView x:Name="invoiceDetailsListView" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <!-- Your existing columns -->
+                    <GridViewColumn Header="Laskunumero" DisplayMemberBinding="{Binding Laskunumero}" Width="100" />
+                    <GridViewColumn Header="Asiakas" DisplayMemberBinding="{Binding Asiakas.Nimi}" Width="150" />
+                    <GridViewColumn Header="Varaus alkaa" DisplayMemberBinding="{Binding Varaus.VarausAlkaa, StringFormat={}{0:dd.MM.yyyy}}" Width="150" />
+                    <GridViewColumn Header="Varaus päättyy" DisplayMemberBinding="{Binding Varaus.VarausPaattyy, StringFormat={}{0:dd.MM.yyyy}}" Width="150" />
+                    <GridViewColumn Header="Huone" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox ItemsSource="{Binding DataContext.Huoneet, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                          SelectedValuePath="HuoneenNumeroID"
+                                          DisplayMemberPath="Nimi"
+                                          SelectedValue="{Binding Varaus.Huone.HuoneenNumeroID, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Palvelut" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <ListView ItemsSource="{Binding Varaus.VarauksenPalvelut}">
+                                        <ListView.Resources>
+                                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                <Setter Property="Height" Value="0" />
+                                            </Style>
+                                            <Style TargetType="ListView">
+                                                <Setter Property="BorderBrush" Value="LightGray" />
+                                                <Setter Property="BorderThickness" Value="0 0 0 0" />
+                                            </Style>
+                                        </ListView.Resources>
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Palvelu" Width="95">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <ComboBox ItemsSource="{Binding DataContext.Palvelut, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                                                      SelectedValuePath="PalveluID"
+                                                                      DisplayMemberPath="Tuote"
+                                                                      SelectedValue="{Binding Palvelu.PalveluID, Mode=TwoWay}"/>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Header="Kpl" DisplayMemberBinding="{Binding Kpl}" Width="30" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                    <Button Content="Lisää palvelu" Click="AddService_Click" Margin="0,5,0,0"  Background="#FFEDF3F3"/>
+                                    <Button Content="Poista palvelut" Click="RemoveAllServices_Click" Margin="0,5,0,0"  Background="#FFEDF3F3"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Laskutustapa" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox ItemsSource="{Binding DataContext.Laskutustavat, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                          SelectedValue="{Binding Laskutustapa, Mode=TwoWay}" DisplayMemberPath=""/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+            <Label Content="Loppusumma"/>
+            <TextBox x:Name="totalAmountTextBox" Margin="5" Width="100"/>
+            <Button Content="Tallenna" Margin="5" Width="120" Height="30" Click="SaveChanges_Click"  Background="#FFEDF3F3"/>
+            <Button Content="Tulosta lasku" Margin="5" Width="120" Height="30" Click="Print_Click"  Background="#FFEDF3F3"/>
+            <Button Content="Sulje" Margin="5" Width="120" Height="30" Click="CloseButton_Click"  Background="#FFEDF3F3"/>
+        </StackPanel>
+    </Grid>
+</Window>
+
