@@ -8,17 +8,17 @@ This document provides an overview of the reservation management application's f
 - Admin account username: "admin", password: "admin". Remove this account before final deployment.
 - The database creation script, sample data, and setup user account can be found in the project's SQL folder
 - The database connection requires the HeidiSQL database interface with a user named "student" and the password "student1". Ensure the user has the necessary permissions.
-
+  
+### User Permissions
+- Users have different levels of access rights. Standard users cannot manage branches, rooms, or users; only administrators can.
+- When making a reservation, the user who is logged in will be recorded as the creator of the reservation in the database.
+  
 ### Login Window
 Users are given a username and password to log in. Usernames and passwords can include letters, numbers, and special characters. Usernames are limited to 50 characters and passwords to 30 characters. Successful login directs users to the home page; unsuccessful attempts return an error message. The login window size is fixed.
 
 An admin account is created for setup purposes. It should be deleted via user management before final deployment:
 - Username: "admin"
 - Password: "admin"
-- 
-## User Permissions
-- Users have different levels of access rights. Standard users cannot manage branches, rooms, or users; only administrators can.
-- When making a reservation, the user who is logged in will be recorded as the creator of the reservation in the database.
 
 ## Home Window
 Upon logging in, users arrive at the home window. The interface remains consistent across windows, with a sidebar for navigation. The sidebar allows selection of various functions. The minimum window size is 500x850 pixels, but it can be resized by dragging the edges.
@@ -39,11 +39,11 @@ Users can add new customers by filling in the required fields and clicking "Add"
 ### Delete Customer
 - Select the customer from the dropdown menu and click "Retrieve Information".
 - Confirm deletion by clicking "Delete Customer".
-- 
+  
 ### Edit Customers
 - Select the customer from the dropdown menu and click "Retrieve Information".
 - Edit the information and click "Save Changes".
-- 
+  
 ### History
 - On the History tab, you can view customers' orders.
 
